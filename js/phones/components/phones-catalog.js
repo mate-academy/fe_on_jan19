@@ -1,14 +1,12 @@
 import Component from './component.js';
 
-export default class PhonesCatalog extends Component {
-    constructor({
-        element,
-        phones = [],
+export default class PhonesCatalog extends Component{
+    constructor({ 
+        element, 
+        phones = [], 
         onPhoneSelected = () => {}
     }) {
-        super({
-            element
-        });
+        super({ element });
         this._phones = phones;
         this.onPhoneSelected = onPhoneSelected;
         this._render();
