@@ -1,13 +1,15 @@
+'use strict';
+
 export default class Component {
-    constructor({ element }) {
-        this._element = element;
-    }
+	constructor({ element }) {
+		this._element = element;
+	}
 
-    hide() {
-        this._element.hidden = true;
-    }
+	hide() {
+      this._element.hidden = true;
+  }
 
-    show() {
-        this._element.hidden = false;
-    }
+  show() {
+  	this._element.hidden = false;
+  }
 }

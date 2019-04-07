@@ -1,3 +1,5 @@
+'use strict';
+
 const phonesFromServer = [
     {
       "age": 0,
@@ -236,9 +238,9 @@ const PhonesService = {
     getAll() {
         return phonesFromServer;
     },
-    getById(id) {
+    getById() {
       return phoneByIdDetails;
     }
 }
-export default PhonesService;
 
+export default PhonesService;
