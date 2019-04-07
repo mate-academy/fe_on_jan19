@@ -9,9 +9,9 @@ export default class PhoneViewer extends Component {
       element
     });
     this.goBack = goBack;
-    this._element.addEventListener('click', (event) => {
+    this._element.addEventListener('click', (e) => {
       const btnBack = this._element.querySelector('[data-go="back"]');
-      if (!btnBack) return;
+      if (e.target !== btnBack) return;
       this.goBack();
     })
   }
