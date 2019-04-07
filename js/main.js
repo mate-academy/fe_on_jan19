@@ -1,5 +1,7 @@
-import PhonesPage from './phones/phones-page.js';
+'use strict';
+import PhonesPage from './phones/phones-page.js'
 
-const phonesPage = new PhonesPage({
-    element: document.querySelector('[data-page-container]')
-})
+
+const phonePage = new PhonesPage({
+  element: document.querySelector('[data-page-container]')
+});
