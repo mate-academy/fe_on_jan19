@@ -14,6 +14,7 @@ export default class PhonesPage {
             phones: PhonesService.getAll(),
             onPhoneSelected: (id) => {
                 console.log('Selected: ', id);
+                ///выводит не то, getById(id) одно и то же независимо от id
                 const phoneDetails = PhonesService.getById(id);
                 this._catalog.hide();
                 this._viewer.show(phoneDetails);

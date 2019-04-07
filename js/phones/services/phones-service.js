@@ -236,6 +236,7 @@ const PhonesService = {
     return phonesFromServer;
   },
   getById(id) {
+    ///надо написать другой метод
     return phoneByIdDetails;
   }
 }
