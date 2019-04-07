@@ -1,21 +1,33 @@
 import PhonesCatalog from './components/phones-catalog.js';
+import PhoneViewer from './components/phone-viewer.js';
 import PhonesService from './services/phones-service.js';
 
 export default class PhonesPage {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._element = element;
         this._render();
 
         this._catalog = new PhonesCatalog({
-            element: this._element.querySelector('[data-phone-catalog]'),
-            phones: PhonesService.getAll()
+            element: this._element.querySelector('[data-component="phone-catalog"]'),
+            phones: PhonesService.getAll(),
+            onPhoneSelected: (id) => {
+                console.log('Selected: ', id);
+                const phoneDetails = PhonesService.getById(id);
+                this._catalog.hide();
+                this._viewer.show(phoneDetails);
+            }
+        })
+
+        this._viewer = new PhoneViewer({
+            element: this._element.querySelector('[data-component="phone-viewer"]')
         })
     }
 
     _render() {
         this._element.innerHTML = `
         <div class="row">
-
         <!--Sidebar-->
         <div class="col-md-2">
             <section>
@@ -23,7 +35,6 @@ export default class PhonesPage {
                 Search:
                 <input>
             </p>
-
             <p>
                 Sort by:
                 <select>
@@ -32,7 +43,6 @@ export default class PhonesPage {
                 </select>
             </p>
             </section>
-
             <section>
             <p>Shopping Cart</p>
             <ul>
@@ -42,10 +52,10 @@ export default class PhonesPage {
             </ul>
             </section>
         </div>
-
         <!--Main content-->
         <div class="col-md-10">
-            <div data-phone-catalog></div>
+            <div data-component="phone-viewer"></div>
+            <div data-component="phone-catalog"></div>
         </div>
         </div>`
     }
