@@ -1,4 +1,3 @@
-
 const phonesFromServer = [
     {
         "age": 0,
