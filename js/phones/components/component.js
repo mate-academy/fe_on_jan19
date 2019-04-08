@@ -1,10 +1,10 @@
 export default class Component {
-    constructor({ element }) {
+    constructor({element}) {
         this._element = element;
     }
 
     hide() {
-        this._element.hidden = true;
+        this._element.hidden = true
     }
 
     show() {
