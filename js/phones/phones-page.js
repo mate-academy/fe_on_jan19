@@ -16,10 +16,14 @@ export default class PhonesPage {
                 this._catalog.hide();
                 this._viewer.show(phoneDetails);
             }
-        })
+        });
 
         this._viewer = new PhoneViewer({
-            element: this._element.querySelector('[data-component="phone-viewer"]')
+            element: this._element.querySelector('[data-component="phone-viewer"]'),
+            onBackButton:()=>{
+                this._catalog.show();
+                this._viewer.hide();
+            }
         })
     }
 

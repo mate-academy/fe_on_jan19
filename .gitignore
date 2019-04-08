@@ -1,1 +1,4 @@
 CONF.json
+.gitignore
+.idea
+_config.yml
