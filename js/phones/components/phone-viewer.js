@@ -9,6 +9,10 @@ export default class PhoneViewer extends Component{
         this._onBack = onBack;
 
         this.on('click', '[data-batton="back-button"]', this._onBack)
+        this.on('click', '[data-element="small-preview"]', (event) =>{
+         this.bigImg = this._element.querySelector('[data-element="big-preview"]');
+         this.bigImg.src = event.target.src;
+        })
     }
       
     show(phoneDetails) {
@@ -19,7 +23,11 @@ export default class PhoneViewer extends Component{
 
     _render() {
         this._element.innerHTML = `
-        <img class="phone" src="${this._phoneDetaild.images[0]}">
+        <img
+        data-element="big-preview"
+        class="phone" 
+        src="${this._phoneDetaild.images[0]}"
+        >
 
         <button data-batton="back-button">Back</button>
         <button>Add to basket</button>
@@ -33,7 +41,7 @@ export default class PhoneViewer extends Component{
           ${
             this._phoneDetaild.images.map( src => `
             <li>
-              <img src="${src}">
+              <img src="${src}" data-element="small-preview">
             </li>
           `
            ).join('')
