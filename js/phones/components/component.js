@@ -1,6 +1,7 @@
 export default class Component {
     constructor({ element }) {
         this._element = element;
+        this._callbackMap = {};
     }
     on(eventName, selector, callback){
         this._element.addEventListener(eventName, (event)=>{
@@ -10,6 +11,16 @@ export default class Component {
             }
             callback(event);
         })
+    }
+    emit(eventName, data){
+        const callback = this._callbackMap[eventName];
+        if(!callback){
+            return;
+        }
+        callback(data);
+    }
+    subscribe(eventName, callback){
+        this._callbackMap[eventName] = callback;
     }
     hide() {
         this._element.hidden = true;

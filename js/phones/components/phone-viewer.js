@@ -2,13 +2,10 @@ import Component from './component.js';
 
 export default class PhoneViewer extends Component {
 
-    constructor({
-       element,
-       onBackButton=()=>{} })
+    constructor({element})
     {
         super({element});
         this._element = element;
-        this._onBackButton = onBackButton;
         this._addEvents();
     }
 
@@ -19,8 +16,10 @@ export default class PhoneViewer extends Component {
     }
 
     _addEvents(){
-        this.on('click','[data-back-button="backToCatalog"]', this._onBackButton);
-        this.on('click', `[data-element="small-image"]`, (event)=>{
+        this.on('click','[data-back-button="backToCatalog"]',()=>{
+            this.emit('back')
+        });
+        this.on('click','[data-element="small-image"]', (event)=>{
             const largeImg = this._element.querySelector('[data-element="large-image"]'),
                 newSrc =  event.target.getAttribute('src');
             largeImg.setAttribute('src', newSrc);
