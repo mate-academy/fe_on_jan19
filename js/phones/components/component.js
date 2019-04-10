@@ -15,15 +15,28 @@ export default class Component {
     }
 
     emit(eventName, data) {
-        const callback = this._callbackMap[eventName];
-        if (!callback) {
+        const callbacks = this._callbackMap[eventName];
+        if (!callbacks) {
             return;
         }
-        callback(data);
+        callbacks.forEach((callback) => {
+            callback(data);
+        })
     }
 
     subscribe(eventName, callback) {
-        this._callbackMap[eventName] = callback;
+        if (!this._callbackMap[eventName]) {
+            this._callbackMap[eventName] = [];
+        }
+        this._callbackMap[eventName].push(callback);
+    }
+
+    unsubscribe(eventName, callbackToRemove) {
+        const callbacks = this._callbackMap[eventName];
+        if (callbacks) {
+            this._callbackMap[eventName] = callbacks
+            .filter((cb) => cb !== callbackToRemove)
+        }
     }
 
     hide() {
