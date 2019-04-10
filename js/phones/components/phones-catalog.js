@@ -7,7 +7,6 @@ export default class PhonesCatalog extends Component{
         onPhoneSelected = () => {}
     }) {
         super({ element });
-        this._element = element;
         this._phones = phones;
         this.onPhoneSelected = onPhoneSelected;
         this._render();
