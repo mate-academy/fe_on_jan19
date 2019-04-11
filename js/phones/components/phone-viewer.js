@@ -2,17 +2,23 @@ import Component from './component.js'
 
 export default class PhoneViewer extends Component{
     constructor({
-        element,
+        element
         }) {
         super({element}),
 
         this.on('click', '[data-batton="back-button"]', () => {
           this.emit('back');
         })
+        
         this.on('click', '[data-element="small-preview"]', (event) =>{
          this.bigImg = this._element.querySelector('[data-element="big-preview"]');
          this.bigImg.src = event.target.src;
         })
+
+        this.on('click', '[data-batton="add-to-basket"]', () => {
+          this.emit('add-to-basket',this._phoneDetaild);
+        })
+
     }
       
     show(phoneDetails) {
@@ -30,7 +36,7 @@ export default class PhoneViewer extends Component{
         >
 
         <button data-batton="back-button">Back</button>
-        <button>Add to basket</button>
+        <button data-batton="add-to-basket">Add to basket</button>
     
     
         <h1>${this._phoneDetaild.name}</h1>
