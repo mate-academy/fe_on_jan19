@@ -1,31 +1,51 @@
 import PhonesCatalog from './components/phones-catalog.js';
 import PhoneViewer from './components/phone-viewer.js';
+import ShoppingCart from './components/shopping-cart.js';
 import PhonesService from './services/phones-service.js';
 
 export default class PhonesPage {
     constructor({ element }) {
         this._element = element;
         this._render();
+        this._initialCatalog();
+        this._initialViewer();
+        this._initialSoppingCart();
+    }
 
+    _initialCatalog(){
         this._catalog = new PhonesCatalog({
             element: this._element.querySelector('[data-component="phone-catalog"]'),
             phones: PhonesService.getAll(),
         });
+
         this._catalog.subscribe('phone-selected', (id) => {
-            console.log('Selected: ', id);
+            //console.log('Selected: ', id);
             const phoneDetails = PhonesService.getById(id);
             this._catalog.hide();
             this._viewer.show(phoneDetails);
         });
 
+        this._catalog.subscribe('add-to-cart',({phoneSrc, phoneName})=>{
+          console.log('Selected: ', phoneName);
+            this._cart.addToCart({phoneSrc, phoneName});
+        })
+
+    }
+    _initialViewer(){
         this._viewer = new PhoneViewer({
             element: this._element.querySelector('[data-component="phone-viewer"]'),
         });
+
         this._viewer.subscribe('back', ()=>{
             this._catalog.show();
             this._viewer.hide();
         })
+    }
 
+    _initialSoppingCart(){
+        this._cart = new ShoppingCart({
+            element: this._element.querySelector('[data-component="phone-shopping-cart"]')
+        })
     }
 
     _render() {
@@ -50,12 +70,7 @@ export default class PhonesPage {
             </section>
 
             <section>
-            <p>Shopping Cart</p>
-            <ul>
-                <li>Phone 1</li>
-                <li>Phone 2</li>
-                <li>Phone 3</li>
-            </ul>
+            <div data-component="phone-shopping-cart"></div>  
             </section>
         </div>
 

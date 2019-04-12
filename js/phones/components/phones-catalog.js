@@ -3,19 +3,28 @@ import Component from './component.js';
 export default class PhonesCatalog extends Component{
     constructor({ 
         element, 
-        phones = [], 
-        onPhoneSelected = () => {}
+        phones = [],
     }) {
         super({ element });
         this._phones = phones;
-        this.onPhoneSelected = onPhoneSelected;
         this._render();
 
         this.on('click','[data-element="details-link"]', (event)=>{
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const phoneId = phoneEl.dataset.phoneId;
             this.emit('phone-selected', phoneId)
-        })
+        });
+
+        this.on('click','[data-element="add-to-cart"]', (event)=>{
+            const phoneEl = event.target.closest('[data-element="phone-element"]');
+            const image = phoneEl.querySelector('img');
+
+                const phoneSrc = image.getAttribute('src');
+                const phoneName = phoneEl.dataset.phoneId;
+                console.log(name);
+                const phoneImage = phoneEl.innerHTML;
+                this.emit('add-to-cart',{phoneSrc , phoneName});
+        });
     }
 
     _render() {
@@ -38,7 +47,10 @@ export default class PhonesCatalog extends Component{
                         </a>
 
                         <div class="phones__btn-buy-wrapper">
-                        <a class="btn btn-success">
+                        <a 
+                        class="btn btn-success"
+                        data-element="add-to-cart"
+                        >
                             Add
                         </a>
                         </div>
