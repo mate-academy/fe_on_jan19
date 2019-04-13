@@ -18,12 +18,10 @@ export default class PhonesCatalog extends Component{
         this.on('click','[data-element="add-to-cart"]', (event)=>{
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const image = phoneEl.querySelector('img');
+            const phoneSrc = image.getAttribute('src');
+            const phoneName = phoneEl.dataset.phoneId;
 
-                const phoneSrc = image.getAttribute('src');
-                const phoneName = phoneEl.dataset.phoneId;
-                console.log(name);
-                const phoneImage = phoneEl.innerHTML;
-                this.emit('add-to-cart',{phoneSrc , phoneName});
+            this.emit('add-to-cart',{phoneSrc, phoneName});
         });
     }
 

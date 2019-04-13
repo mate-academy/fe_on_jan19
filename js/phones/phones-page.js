@@ -25,9 +25,9 @@ export default class PhonesPage {
             this._viewer.show(phoneDetails);
         });
 
-        this._catalog.subscribe('add-to-cart',({phoneSrc, phoneName})=>{
+        this._catalog.subscribe('add-to-cart',({phoneSrc, phoneName, phoneEl})=>{
           console.log('Selected: ', phoneName);
-            this._cart.addToCart({phoneSrc, phoneName});
+            this._cart.addToCart({phoneSrc, phoneName, phoneEl});
         })
 
     }
