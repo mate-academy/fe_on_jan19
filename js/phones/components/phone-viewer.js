@@ -15,6 +15,11 @@ export default class PhoneViewer extends Component {
       const bigPreview = this._element.querySelector('[data-element="big-preview"]');
       bigPreview.src = event.target.src;
     })
+
+    this.on('click', '[data-element="add-cart"]', (event) => {
+      const phoneId = this._phoneDetails.name;
+      this.emit('add-to-cart', phoneId);
+    })
   }
 
   show(phoneDetails) {
@@ -25,20 +30,28 @@ export default class PhoneViewer extends Component {
 
   _render() {
     this._element.innerHTML = `
-        <img class="phone" src="${this._phoneDetails.images[0]}">
-        <button data-go="back">Back</button>
-        <button>Add to basket</button>
+        <img
+        data-element="big-preview"
+        class="phone" 
+        src="${this._phoneDetails.images[0]}"
+        >
+        <button data-element="back-button">Back</button>
+        <button data-element="add-cart">Add to basket</button>
+    
         <h1>${this._phoneDetails.name}</h1>
+    
         <p>${this._phoneDetails.description}</p>
     
         <ul class="phone-thumbs">
-
-            ${this._phoneDetails.images.map(imgSrc=>`
-              <li>
-                <img src="${imgSrc}">
-              </li>
-            `).join('')}
+          ${this._phoneDetails.images.map(imageUrl => `
+          <li>
+            <img 
+            src="${imageUrl}" 
+            data-element="small-preview"
+            >
+          </li>
+          `).join('')}
         </ul>
-     `
+        `
   }
 }

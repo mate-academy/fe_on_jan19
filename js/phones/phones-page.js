@@ -9,7 +9,6 @@ export default class PhonesPage {
     }) {
         this._element = element;
         this._render();
-
         this._initCatalog();
         this._initViewer();
         this._initCart();
@@ -19,14 +18,7 @@ export default class PhonesPage {
     _initCatalog() {
         this._catalog = new PhonesCatalog({
             element: this._element.querySelector('[data-component="phone-catalog"]'),
-            phones: PhonesService.getAll(),
-            onPhoneSelected: (id) => {
-                console.log('Selected: ', id);
-                ///выводит не то, getById(id) одно и то же независимо от id
-                const phoneDetails = PhonesService.getById(id);
-                this._catalog.hide();
-                this._viewer.show(phoneDetails);
-            }
+            phones: PhonesService.getAll()
         })
 
         this._catalog.subscribe('phone-selected', (id) => {
@@ -39,12 +31,23 @@ export default class PhonesPage {
 
     _initViewer() {
         this._viewer = new PhoneViewer({
+            element: this._element.querySelector('[data-component="phone-viewer"]')
+        })
 
-            element: this._element.querySelector('[data-component="phone-viewer"]'),
-            goBack: () => {
-                this._viewer.hide();
-                this._catalog.show();
-            }
+        this._viewer.subscribe('back', () => {
+            this._catalog.show();
+            this._viewer.hide();
+        })
+    }
+
+    _initCart() {
+        this._cart = new ShoppingCart({
+            element: this._element.querySelector('[data-component="shopping-cart"]')
+        })
+
+        this._cart.subscribe('addToCart', (id) => {
+            console.log('added: ', id);
+            this._cart.addToCart(id);
         })
     }
 

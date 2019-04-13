@@ -3,8 +3,7 @@ import Component from './component.js';
 export default class PhonesCatalog extends Component {
     constructor({
         element,
-        phones = [],
-        onPhoneSelected = () => {}
+        phones = []
     }) {
         super({
             element
@@ -17,6 +16,13 @@ export default class PhonesCatalog extends Component {
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const phoneId = phoneEl.dataset.phoneId;
             this.emit('phone-selected', phoneId);
+        })
+
+        this.on('click', '[data-element="add-cart"]', (event) => {
+            const phoneEl = event.target.closest('[data-element="phone-element"]');
+            const phoneId = phoneEl.dataset.phoneId;
+            console.log("add " + phoneId + "  " + this);
+            //this._cart.emit('add-to-cart', phoneId);
         })
     }
 
@@ -38,11 +44,14 @@ export default class PhonesCatalog extends Component {
                         <img alt="${phone.name}™ with Wi-Fi" src="${phone.imageUrl}">
                         </a>
                         <div class="phones__btn-buy-wrapper">
-                        <a class="btn btn-success">
+                        <a class="btn btn-success" data-element="add-cart">
                             Add
                         </a>
                         </div>
-                        <a href="#!/phones/motorola-xoom-with-wi-fi">${phone.name}</a>
+                        <a 
+                        href="#!/phones/motorola-xoom-with-wi-fi"
+                        data-element="details-link"
+                        >${phone.name}</a>
                         <p>${phone.snippet}</p>
                     </li>
                 `).join('')
