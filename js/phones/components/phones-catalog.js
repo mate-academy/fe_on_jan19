@@ -3,7 +3,8 @@ import Component from './component.js';
 export default class PhonesCatalog extends Component {
     constructor({
         element,
-        phones = []
+        phones = [],
+        onPhoneSelected = () => {}
     }) {
         super({
             element
@@ -36,17 +37,12 @@ export default class PhonesCatalog extends Component {
                         >
                         <img alt="${phone.name}™ with Wi-Fi" src="${phone.imageUrl}">
                         </a>
-
                         <div class="phones__btn-buy-wrapper">
                         <a class="btn btn-success">
                             Add
                         </a>
                         </div>
-
-                        <a 
-                        href="#!/phones/motorola-xoom-with-wi-fi"
-                        data-element="details-link"
-                        >${phone.name}</a>
+                        <a href="#!/phones/motorola-xoom-with-wi-fi">${phone.name}</a>
                         <p>${phone.snippet}</p>
                     </li>
                 `).join('')

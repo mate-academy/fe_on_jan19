@@ -1,8 +1,9 @@
 export default class Component {
+
     constructor({
         element
     }) {
-        this._callbackMap = {};
+
         this._element = element;
     }
 
