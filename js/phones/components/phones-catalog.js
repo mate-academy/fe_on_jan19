@@ -21,8 +21,9 @@ export default class PhonesCatalog extends Component {
         this.on('click', '[data-element="add-cart"]', (event) => {
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const phoneId = phoneEl.dataset.phoneId;
-            console.log("add " + phoneId + "  " + this);
-            //this._cart.emit('add-to-cart', phoneId);
+            console.log("add " + phoneId + "  ");
+            //this.emit('add-to-cart', phoneId);
+            this._cart.emit('add-to-cart', phoneId);
         })
     }
 

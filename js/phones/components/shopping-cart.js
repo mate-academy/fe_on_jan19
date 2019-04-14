@@ -11,7 +11,7 @@ export default class ShoppingCart extends Component {
     }
 
     addToCart(phone) {
-        this._element.querySelector('UL').innerHTML = `
+        this._element.querySelector('UL').insertAdjacentHTML = `
                <li>${phone}</li>
         `;
     }

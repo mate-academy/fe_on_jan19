@@ -12,7 +12,6 @@ export default class PhonesPage {
         this._initCatalog();
         this._initViewer();
         this._initCart();
-
     }
 
     _initCatalog() {
@@ -27,6 +26,7 @@ export default class PhonesPage {
             this._catalog.hide();
             this._viewer.show(phoneDetails);
         })
+
     }
 
     _initViewer() {
@@ -38,6 +38,7 @@ export default class PhonesPage {
             this._catalog.show();
             this._viewer.hide();
         })
+
     }
 
     _initCart() {
@@ -80,4 +81,9 @@ export default class PhonesPage {
         </div>
         </div>`
     }
+
+
+
+
+
 }
