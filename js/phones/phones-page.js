@@ -25,20 +25,25 @@ export default class PhonesPage {
             this._viewer.show(phoneDetails);
         });
 
-        this._catalog.subscribe('add-to-cart',({phoneSrc, phoneName, phoneEl})=>{
+        this._catalog.subscribe('add-to-cart',({phoneSrc, phoneName})=>{
           console.log('Selected: ', phoneName);
-            this._cart.addToCart({phoneSrc, phoneName, phoneEl});
+            this._cart.addToCart({phoneSrc, phoneName});
         })
 
     }
     _initialViewer(){
         this._viewer = new PhoneViewer({
+            phones: PhonesService.getAll(),
             element: this._element.querySelector('[data-component="phone-viewer"]'),
         });
 
         this._viewer.subscribe('back', ()=>{
             this._catalog.show();
             this._viewer.hide();
+        });
+
+        this._viewer.subscribe('add-to-cart',({phoneSrc, phoneName})=>{
+            this._cart.addToCart({phoneSrc, phoneName});
         })
     }
 

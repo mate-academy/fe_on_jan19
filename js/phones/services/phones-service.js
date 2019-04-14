@@ -233,7 +233,7 @@ const phoneByIdDetails = {
 // }
 
 const PhonesService = {
-    getAll() {
+    getAll(id) {
         return phonesFromServer;
     },
     getById(id) {

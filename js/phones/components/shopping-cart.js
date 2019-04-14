@@ -21,7 +21,7 @@ export default class ShoppingCart extends Component{
            this._addedPhones[`${phoneName}`]++;
             this._element.querySelector(selector).innerHTML = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
                 return;
-        }else {
+        }else{
             this._addedPhones[`${phoneName}`] = 1;
 
             if(this._element.querySelector(selector)){
