@@ -4,14 +4,14 @@ import ShoppingCart from './components/shopping-cart.js';
 import PhonesService from './services/phones-service.js';
 
 export default class PhonesPage {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._element = element;
         this._render();
-
         this._initCatalog();
         this._initViewer();
         this._initCart();
-        
     }
 
     _initCatalog() {
@@ -26,6 +26,11 @@ export default class PhonesPage {
             this._catalog.hide();
             this._viewer.show(phoneDetails);
         })
+        this._catalog.subscribe('add-to-cart', (id) => {
+            console.log('added: ', id);
+            this._cart.addToCart(id);
+        })
+
     }
 
     _initViewer() {
@@ -37,18 +42,27 @@ export default class PhonesPage {
             this._catalog.show();
             this._viewer.hide();
         })
+        this._viewer.subscribe('add-to-cart', (id) => {
+            console.log('added: ', id);
+            this._cart.addToCart(id);
+        })
+
     }
 
     _initCart() {
         this._cart = new ShoppingCart({
             element: this._element.querySelector('[data-component="shopping-cart"]')
         })
+
+        this._cart.subscribe('addToCart', (id) => {
+            console.log('added: ', id);
+            this._cart.addToCart(id);
+        })
     }
 
     _render() {
         this._element.innerHTML = `
         <div class="row">
-
         <!--Sidebar-->
         <div class="col-md-2">
             <section>
@@ -56,7 +70,6 @@ export default class PhonesPage {
                 Search:
                 <input>
             </p>
-
             <p>
                 Sort by:
                 <select>
@@ -65,12 +78,10 @@ export default class PhonesPage {
                 </select>
             </p>
             </section>
-
             <section>
                 <div data-component="shopping-cart"></div>
             </section>
         </div>
-
         <!--Main content-->
         <div class="col-md-10">
             <div data-component="phone-viewer"></div>
@@ -78,4 +89,9 @@ export default class PhonesPage {
         </div>
         </div>`
     }
+
+
+
+
+
 }

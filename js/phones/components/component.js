@@ -1,7 +1,10 @@
 export default class Component {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._callbackMap = {};
         this._element = element;
+
     }
 
     on(eventName, selector, callback) {
@@ -35,7 +38,7 @@ export default class Component {
         const callbacks = this._callbackMap[eventName];
         if (callbacks) {
             this._callbackMap[eventName] = callbacks
-            .filter((cb) => cb !== callbackToRemove)
+                .filter((cb) => cb !== callbackToRemove)
         }
     }
 
@@ -47,3 +50,23 @@ export default class Component {
         this._element.hidden = false;
     }
 }
+
+// this.on('click', '[data-element="add-to-cart"]', (event) => {
+//     const phoneEl = event.target.closest('[data-element="phone-element"]');
+//     const phoneId = phoneEl.dataset.phoneId;
+//     console.log(phoneId);
+//     this.emit('add-to-cart', phoneId);
+// })
+
+// const phoneId = null;
+
+//         this.on('click', '[data-element="add-to-cart"]', (event) => {
+//             if (event.target.closest('[data-element="phone-element"]')) {
+//                 const phoneEl = event.target.closest('[data-element="phone-element"]');
+//                 phoneId = phoneEl.dataset.phoneId;
+//             } else
+
+//                 phoneId = phoneEl._phoneDetails.name;
+//             console.log(phoneId);
+//             this.emit('add-to-cart', phoneId);
+//         })
