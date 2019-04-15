@@ -1,23 +1,19 @@
 import Component from './component.js';
 
 export default class PhonesCatalog extends Component{
-    constructor({   element, 
-        phones = [], 
-        onPhoneSelected = () => {} 
+    constructor({   
+        element, 
+        phones = []
     }) {
         super({ element });
         this._phones = phones;
-        this.onPhoneSelected = onPhoneSelected;
         this._render();
 
-        this._element.addEventListener('click', (event) => {
-            const phoneElem = event.target.closest('[data-element="phone-element"]');
-            if (!phoneElem){
-                return;
-            }
-            const phoneId = phoneElem.dataset.phoneId;
-            this.onPhoneSelected(phoneId);
-        })    
+        this.on('click', '[data-element="details-link"]',(event) => {
+            const phoneEl = event.target.closest('[data-element="phone-element"]');
+            const phoneId = phoneEl.dataset.phoneId;
+            this.emit('phone-selected', phoneId);
+        })
     }
 
     _render() {
@@ -30,7 +26,11 @@ export default class PhonesCatalog extends Component{
                     data-element="phone-element"
                     data-phone-id=${phone.id}
                     >
-                        <a href="#!/phones/${phone.name}" class="thumb">
+                        <a
+                         href="#!/phones/${phone.name}" 
+                        class="thumb" 
+                        data-element="details-link"
+                        >
                         <img alt="${phone.name}" src="${phone.imageUrl}">
                         </a>
                         <div class="phones__btn-buy-wrapper">
@@ -38,7 +38,10 @@ export default class PhonesCatalog extends Component{
                             Add
                         </a>
                         </div>
-                        <a href="#!/phones/${phone.name}">${phone.name}</a>
+                        <a
+                        href="#!/phones/${phone.name}" 
+                        data-element="details-link"
+                        >${phone.name}</a>
                         <p>${phone.snippet}</p>
                     </li>
                 `).join('')

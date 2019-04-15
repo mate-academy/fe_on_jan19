@@ -3,17 +3,15 @@ import Component from "./component.js"
 export default class PhoneViewer extends Component{
     constructor({ 
       element,
-      backToCatalog = () => {}
     }){
       super({element});
-      this.backToCatalog = backToCatalog;
 
-      this._element.addEventListener('click', (event) => {
+      this.on('click','[data-component="back-button"]', (event) => {
         const backButton = this._element.querySelector('[data-component="back-button"]');
         if (event.target !== backButton){
           return;
         }
-        this.backToCatalog();
+        this.emit('back');
       })
     }
 
