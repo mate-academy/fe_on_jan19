@@ -9,9 +9,13 @@ export default class PhonesCatalog extends Component{
         this._phones = phones;
         this._render();
 
+
         this.on('click','[data-element="details-link"]', (event)=>{
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const phoneId = phoneEl.dataset.phoneId;
+            const phoneName = phoneId;
+            console.log(phoneName);
+            this.emit('if-catalog-hide', phoneName);
             this.emit('phone-selected', phoneId)
         });
 

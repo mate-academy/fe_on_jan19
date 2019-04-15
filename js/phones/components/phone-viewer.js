@@ -8,8 +8,9 @@ export default class PhoneViewer extends Component {
     {
         super({element});
         this._element = element;
-        this._phones  = phones;
+        this._phones = phones;
         this._addEvents();
+
     }
 
     show(phoneDetails) {
@@ -22,6 +23,7 @@ export default class PhoneViewer extends Component {
 
 
         this.on('click','[data-back-button="backToCatalog"]',()=>{
+            this._element.setAttribute(`data-component`,`phone-viewer`);
             this.emit('back')
         });
         this.on('click','[data-element="small-image"]', (event)=>{
@@ -32,10 +34,18 @@ export default class PhoneViewer extends Component {
         });
         this.on('click','[data-element="add-to-cart-view"]',()=>{
             const phoneSrc = this._element.querySelector('[data-element="large-image"]').getAttribute('src'),
-                  phoneName = this._phones[0]['id'];
-
+                  phoneName = this._phone[0]['id'];
             this.emit('add-to-cart',{phoneSrc, phoneName});
         })
+
+    }
+    setDataAttribute({id}){
+       this._element.setAttribute(`data-component`,`phone-${id}`);
+       this._phone = this._phones.filter((selectedPhone)=>{
+            if(selectedPhone['id'] === id){
+                return selectedPhone;
+           }
+       });
 
     }
     _render() {
@@ -52,7 +62,7 @@ export default class PhoneViewer extends Component {
         >Add to basket</button>
     
     
-        <h1>${this._phoneDetails.name}</h1>
+        <h1>${this._phone[0]['name']}</h1>
     
         <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
     

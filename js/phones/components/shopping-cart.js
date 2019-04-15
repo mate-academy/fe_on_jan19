@@ -14,9 +14,6 @@ export default class ShoppingCart extends Component{
 
         let selector = `[data-element="count-phone-${phoneName}"]`;
 
-        console.log(this._addedPhones);
-        console.log(selector);
-
         if(this._addedPhones[`${phoneName}`]){
            this._addedPhones[`${phoneName}`]++;
             this._element.querySelector(selector).innerHTML = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';

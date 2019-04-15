@@ -19,9 +19,9 @@ export default class PhonesPage {
         });
 
         this._catalog.subscribe('phone-selected', (id) => {
-            //console.log('Selected: ', id);
             const phoneDetails = PhonesService.getById(id);
             this._catalog.hide();
+            this._viewer.setDataAttribute({ id });
             this._viewer.show(phoneDetails);
         });
 
@@ -32,9 +32,10 @@ export default class PhonesPage {
 
     }
     _initialViewer(){
+
         this._viewer = new PhoneViewer({
-            phones: PhonesService.getAll(),
-            element: this._element.querySelector('[data-component="phone-viewer"]'),
+                element: this._element.querySelector('[data-component="phone-viewer"]'),
+                phones: PhonesService.getAll(),
         });
 
         this._viewer.subscribe('back', ()=>{
