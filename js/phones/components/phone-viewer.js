@@ -3,19 +3,18 @@ import Component from './component.js';
 
 
 export default class PhoneViewer extends Component {
-  constructor({
-    element,
-    offPhoneSelected = () => {}
-  }){
+  constructor({ element }){
     super({element});
-    this.offPhoneSelected = offPhoneSelected;
-    this._element.addEventListener('click', (event) => {
-        const buttonBack = document.querySelector('[data-button-back]');
-        if(buttonBack != event.target){
-          return;
-        }
-        this.offPhoneSelected();
+
+    this.on('click', '[data-element = "back-button"]', () => {
+      this.emit('back');
     })
+
+    this.on('click', '[data-element="small-preview"]', (event) => {
+      const bigPreview = this._element.querySelector('[data-element="big-preview"]');
+      bigPreview.src = event.target.src;
+    })
+    
   }
 
   show(phoneDetails){
@@ -26,10 +25,14 @@ export default class PhoneViewer extends Component {
 
   _render(){
     this._element.innerHTML = `
-    <img class="phone" src="${this._phoneDetails.images[0]}">
+    <img
+    data-element = "big-preview"
+     class="phone"
+     src="${this._phoneDetails.images[0]}"
+     >
 
-    <button data-button-back >Back</button>
-    <button data-button = "addToBasket" >Add to basket</button>
+    <button data-element = "back-button" >Back</button>
+    <button data-element = "addToBasket" >Add to basket</button>
 
 
     <h1>${this._phoneDetails.name}</h1>
@@ -37,24 +40,13 @@ export default class PhoneViewer extends Component {
     <p>${this._phoneDetails.description}</p>
 
     <ul class="phone-thumbs">
-      <li>
-        <img src="${this._phoneDetails.images[0]}">
-      </li>
-      <li>
-        <img src="${this._phoneDetails.images[1]}">
-      </li>
-      <li>
-        <img src="${this._phoneDetails.images[2]}">
-      </li>
-      <li>
-        <img src="${this._phoneDetails.images[3]}">
-      </li>
-      <li>
-        <img src="${this._phoneDetails.images[4]}">
-      </li>
-      <li>
-        <img src="${this._phoneDetails.images[5]}">
-      </li>
+    ${this._phoneDetails.images.map(imageUrl => `
+        <li>
+          <img src = "${imageUrl}"
+          data-element = "small-preview"
+          >
+          </li>
+      `). join('')}
     </ul>
 
     <ul class="specs">
