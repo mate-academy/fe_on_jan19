@@ -11,18 +11,17 @@ export default class ShoppingCart extends Component{
     }
 
     addToCart({phoneSrc , phoneName}){
-
         let selector = `[data-element="count-phone-${phoneName}"]`;
 
         if(this._addedPhones[`${phoneName}`]){
            this._addedPhones[`${phoneName}`]++;
-            this._element.querySelector(selector).innerHTML = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
+           this._element.querySelector(selector).innerHTML = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
                 return;
         }else{
             this._addedPhones[`${phoneName}`] = 1;
 
             if(this._element.querySelector(selector)){
-                this._element.querySelector(selector).innerHTML  += '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
+                this._element.querySelector(selector).innerHTML  = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
             }
         }
 
@@ -35,7 +34,7 @@ export default class ShoppingCart extends Component{
         <div
         data-element="count-phone-${phoneName}"
         >
-        1
+        <b>1</b>
         </div>
         
        

@@ -53,7 +53,7 @@ export default class PhoneViewer extends Component {
         <img 
         data-element="large-image"
         class="phone" 
-        src="${this._phoneDetails.images[0]}"
+        src="${this._phone[0]['imageUrl']}"
         >
 
         <button data-back-button="backToCatalog">Back</button>
@@ -64,7 +64,7 @@ export default class PhoneViewer extends Component {
     
         <h1>${this._phone[0]['name']}</h1>
     
-        <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
+        <p>${this._phone[0]['snippet']}</p>
     
         <ul class="phone-thumbs">
         ${this._phoneDetails.images.map((imageUrl)=>{
