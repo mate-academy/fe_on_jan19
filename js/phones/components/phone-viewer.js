@@ -17,8 +17,8 @@ export default class PhoneViewer extends Component {
     })
 
     this.on('click', '[data-element="add-cart"]', (event) => {
-      const phoneId = this._phoneDetails.name;
-      this.emit('add-to-cart', phoneId);
+      console.log("add from viewer " + this._phoneDetails.name);
+      this.emit('add-to-cart', this._phoneDetails.name);
     })
   }
 
