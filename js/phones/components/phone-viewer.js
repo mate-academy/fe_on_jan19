@@ -16,7 +16,7 @@ export default class PhoneViewer extends Component{
         })
 
         this.on('click', '[data-batton="add-to-basket"]', () => {
-          this.emit('add-to-basket',this._phoneDetaild);
+          this.emit('add-to-basket',this._phoneDetaild.id);
         })
 
     }

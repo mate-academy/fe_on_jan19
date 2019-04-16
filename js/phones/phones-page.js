@@ -29,7 +29,7 @@ export default class PhonesPage{
     });
 
     this._catalog.subscribe('add-to-basket',(selectedPhone) => {
-      this._cart._addToBasket(selectedPhone);
+      this._cart.addToBasket(selectedPhone);
     })
     };
 
@@ -44,7 +44,7 @@ export default class PhonesPage{
       })
 
       this._viewer.subscribe('add-to-basket',(selectedPhone) => {
-        this._cart._addToBasket(selectedPhone);
+        this._cart.addToBasket(selectedPhone);
       })
 
     }
