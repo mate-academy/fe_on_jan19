@@ -14,7 +14,10 @@ export default class PhoneViewer extends Component {
       const bigPreview = this._element.querySelector('[data-element="big-preview"]');
       bigPreview.src = event.target.src;
     })
-    
+    this.on('click', '[data-element="add-to-cart"]', (event) => {
+             this.emit('add-phone', this._phoneDetails.id);
+         })
+
   }
 
   show(phoneDetails){
@@ -32,7 +35,7 @@ export default class PhoneViewer extends Component {
      >
 
     <button data-element = "back-button" >Back</button>
-    <button data-element = "addToBasket" >Add to basket</button>
+    <button data-element="add-to-cart" >Add to basket</button>
 
 
     <h1>${this._phoneDetails.name}</h1>
