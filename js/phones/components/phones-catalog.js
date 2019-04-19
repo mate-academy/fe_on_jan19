@@ -18,11 +18,11 @@ export default class PhonesCatalog extends Component {
             this.emit('phone-selected', phoneId);
         })
 
-        this.on('click', '[data-element="add-cart"]', (event) => {
+        
+         this.on('click', '[data-element="add-to-cart"]', (event) => {
             const phoneEl = event.target.closest('[data-element="phone-element"]');
             const phoneId = phoneEl.dataset.phoneId;
-            console.log("add from catalog" + phoneId);
-            this.emit('add-to-cart', phoneId);
+            this.emit('add-phone', phoneId);
         })
     }
 
@@ -44,7 +44,7 @@ export default class PhonesCatalog extends Component {
                         <img alt="${phone.name}™ with Wi-Fi" src="${phone.imageUrl}">
                         </a>
                         <div class="phones__btn-buy-wrapper">
-                        <a class="btn btn-success" data-element="add-cart">
+                        <a class="btn btn-success" data-element="add-to-cart">
                             Add
                         </a>
                         </div>
