@@ -10,9 +10,14 @@ export default class PhoneViewer extends Component {
 			this.on('click', '[data-element="button-back"]', () => {
 				this.emit('back');
 			});
+
 			this.on('click', '[data-element="small-preview"]', (event) => {
 				this._element.querySelector('[data-element="big-preview"]').src = event.target.src;
 			})
+
+			this.on('click', '[data-element="add-to-basket"]', () => {
+        this.emit('add-to-basket', this._phoneDetails.id);
+      })
 
 	};
 
@@ -31,7 +36,7 @@ export default class PhoneViewer extends Component {
 			>
 
 	    <button data-element="button-back">Back</button>
-	    <button>Add to basket</button>
+	    <button data-element="add-to-basket">Add to basket</button>
 
 	    <h1>${this._phoneDetails.name}</h1>
 

@@ -11,7 +11,7 @@ export default class PhonesPage {
     constructor({element}) {
         this._element = element;
 				this._render();
-        
+
         this._initCart();
         this._initCatalog();
         this._initViewer();
@@ -20,7 +20,8 @@ export default class PhonesPage {
     _initCart() {
       this._cart = new ShoppingCart({
         element: this._element.querySelector('[data-component="shopping-cart"]')
-      })
+      });
+      
     }
 
     _initCatalog() {
@@ -29,10 +30,14 @@ export default class PhonesPage {
         phones: PhonesService.getAll(),
       });
 
-      this._catalog.subscribe('phone-selected', (id) =>{
+      this._catalog.subscribe('phone-selected', (id) => {
         const phoneDetails = PhonesService.getById(id);
         this._catalog.hide();
         this._viewer.show(phoneDetails);
+      })
+
+      this._catalog.subscribe('add-to-basket', (phoneId) => {
+        this._cart.addToBasket(phoneId);
       })
     }
 
@@ -44,6 +49,10 @@ export default class PhonesPage {
       this._viewer.subscribe('back', () => {
         this._catalog.show();
         this._viewer.hide();
+      })
+
+      this._viewer.subscribe('add-to-basket', (phoneId) => {
+        this._cart.addToBasket(phoneId);
       })
     }
 
