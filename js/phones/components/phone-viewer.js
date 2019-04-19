@@ -16,9 +16,8 @@ export default class PhoneViewer extends Component {
       bigPreview.src = event.target.src;
     })
 
-    this.on('click', '[data-element="add-cart"]', (event) => {
-      console.log("add from viewer " + this._phoneDetails.name);
-      this.emit('add-to-cart', this._phoneDetails.name);
+   this.on('click', '[data-element="add-to-cart"]', () => {
+        this.emit('add-phone', this._phoneDetails.id);
     })
   }
 
@@ -36,7 +35,7 @@ export default class PhoneViewer extends Component {
         src="${this._phoneDetails.images[0]}"
         >
         <button data-element="back-button">Back</button>
-        <button data-element="add-cart">Add to basket</button>
+        <button data-element="add-to-cart">Add to basket</button>
     
         <h1>${this._phoneDetails.name}</h1>
     
