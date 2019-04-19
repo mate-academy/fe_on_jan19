@@ -1,12 +1,9 @@
 import Component from './component.js';
 
-export default class PhonesCatalog extends Component{
-    constructor({
-        element, 
-        phones = []
-    }) {
+export default class PhonesCatalog extends Component {
+    constructor({ element }) {
         super({ element });
-        this._phones = phones;
+        this._phones = [];
 
         this._render();
 
@@ -21,6 +18,12 @@ export default class PhonesCatalog extends Component{
             const phoneId = phoneEl.dataset.phoneId;
             this.emit('add-phone', phoneId);
         })
+    }
+
+    show(phones) {
+        this._phones = phones;
+        super.show();
+        this._render();
     }
 
     _render() {
