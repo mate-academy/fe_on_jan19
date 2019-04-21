@@ -1,13 +1,11 @@
 import Component from './component.js'
 
 export default class PhonesCatalog extends Component{
-    constructor({
-       element,
-       phones = []
-      }) {
+    constructor({element}) {
+
         super({ element });
-        this._element = element;
-        this._phones = phones;
+         
+        this._phones = [];
         this._render();
 
         this.on('click', '[data-element="details-link"]', () => {
@@ -23,6 +21,12 @@ export default class PhonesCatalog extends Component{
           this.emit('add-to-basket', phoneId);
         })
   
+    }
+
+    show(phones) {
+      this._phones = phones;
+      super.show();
+      this._render();
     }
 
     
