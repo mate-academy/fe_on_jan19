@@ -4,75 +4,65 @@ export default class ShoppingCart extends Component{
 
     constructor({element}){
         super({element});
-        this._element = element;
-        this._render();
-        this._addedPhones = {};
 
+        this._addedPhones = {};
+        this._render();
+        this._element.addEventListener('click',(event)=>{
+            if(!event.target.closest('#remove')){
+                return;
+            }
+
+            const select = event.target.closest('li');
+            const phone = select.dataset.elementName;
+            this.remove(phone)
+        })
     }
 
+
+
     addToCart({phoneSrc , phoneName}){
-        let selector = `[data-element="count-phone-${phoneName}"]`;
-
         if(this._addedPhones[`${phoneName}`]){
-           this._addedPhones[`${phoneName}`]++;
-           this._element.querySelector(selector).innerHTML = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
-                return;
-        }else{
-            this._addedPhones[`${phoneName}`] = 1;
-
-            if(this._element.querySelector(selector)){
-                this._element.querySelector(selector).innerHTML  = '<b>'+this._addedPhones[`${phoneName}`]+'</b>';
-            }
+            this._addedPhones[`${phoneName}`] ++;
+        }else {
+            this._addedPhones[`${phoneName}`] = 1 ;
         }
 
-        this._element.querySelector('[data-element="add-phones"]').innerHTML += `
-        <li style="list-style: none;
-                    border: 2px black solid;
-                  "
-        data-element="added-phone-list"
-        >  
-        <div
-        data-element="count-phone-${phoneName}"
-        >
-        <b>1</b>
-        </div>
-        
-       
-        <span>${phoneName}</span>
-             <input 
-             type="button" 
-             value="Remove Selected Phone"
-             style="border-radius: 3px"
-             data-element="remove-selected-${phoneName}"
-             >
-            <img width="100px" height="50px" src="${phoneSrc}">
-        </li>
-        
-        `;
+        this._render();
+    }
 
-         this._removePhone(phoneName);
-        }
 
-    _removePhone(phoneName){
-        this.on('click',`[data-element="remove-selected-${phoneName}"]`, ()=> {
-            const child = document.querySelector(`[data-element="count-phone-${phoneName}"]`);
-            const parent = document.querySelector('[ data-element="add-phones"]');
-            if(child){
-                parent.removeChild(child.parentNode);
-            }
-            delete this._addedPhones[phoneName];
+    remove(phone) {
+        console.log(phone)
+        if (this._addedPhones[phone]) {
+            this._addedPhones[phone] --;
         }
-   )};
+        if (this._addedPhones[phone] === 0) {
+            delete this._addedPhones[phone];
+        }
+        this._render();
+    }
+
 
     _render(){
         this._element.innerHTML =
-        `
+            `
             <p>Shopping Cart:</p>
             <ul
             data-element="add-phones"
-            >
-           
+           >
+            ${this._renderList()}
             </ul>
         `
     }
+
+    _renderList(){
+        const values = [];
+        for (let key in this._addedPhones){
+            values.push(`<li data-element-name="${key}">${key}: ${this._addedPhones[key]}
+            <button id="remove">Remove</button>
+            </li>`)
+        }
+        return values.join('');
+    }
+
 }
