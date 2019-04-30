@@ -74,9 +74,11 @@ export default class PhonesPage{
 
     _showPhones() {
       this._currentFiltering = this._filter.getCurrent();
-      const phones = PhoneService.getAll(this._currentFiltering);
-      console.log(this._currentFiltering)
-      this._catalog.show(phones);
+       PhoneService.getAll(this._currentFiltering).then((phones) => {
+        console.log(this._currentFiltering)
+        this._catalog.show(phones);
+      });
+      
     }
 
 
