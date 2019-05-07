@@ -2,23 +2,46 @@ import PhonesCatalog from './components/phone-catalog.js';
 import PhoneViewer from './components/phone-viewer.js';
 import ShoppingCart from './components/shopping-cart.js';
 import PhonesService from './services/phone-services.js';
+import Filter from './components/filter.js';
 
 export default class PhonesPage {
     constructor({ element }) {
         this._element = element;
-
         this._render();
-        this._initCatalog();
+
         this._initViewer();
         this._initCart();
-
+        this._initFilter();
+        this._initCatalog();
     }
+
+  _initFilter(){
+    this._filter = new Filter({
+      element: this._element.querySelector('[data-component="filter"]'),
+    })
+
+    this._filter.subscribe('query-order', (eventData) => {
+      this._currentFiltering = this._filter.getCurrent();
+        this._showPhones();
+    })
+
+    this._filter.subscribe('query-field', (eventData) => {
+      this._showPhones();
+    })
+  }
+
+  _showPhones(){
+        this._currentFiltering = this._filter.getCurrent();
+        const phones = PhonesService.getAll(this._currentFiltering);
+        console.log(this._currentFiltering);
+        this._catalog.show(phones);
+  }
 
     _initCatalog() {
         this._catalog = new PhonesCatalog({
             element: this._element.querySelector('[data-component="phone-catalog"]'),
-            phones: PhonesService.getAll()
         })
+        this._showPhones();
 
         this._catalog.subscribe('phone-selected', (id) => {
             console.log('Selected: ', id);
@@ -38,7 +61,7 @@ export default class PhonesPage {
         })
 
         this._viewer.subscribe('back', () => {
-            this._catalog.show();
+            this._showPhones();
             this._viewer.hide();
         })
 
@@ -59,17 +82,7 @@ export default class PhonesPage {
         <!--Sidebar-->
         <div class="col-md-2">
             <section>
-            <p>
-                Search:
-                <input>
-            </p>
-            <p>
-                Sort by:
-                <select>
-                <option value="name">Alphabetical</option>
-                <option value="age">Newest</option>
-                </select>
-            </p>
+                <div data-component="filter"></div>
             </section>
             <section>
               <div data-component="shopping-cart"></div>
