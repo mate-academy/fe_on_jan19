@@ -1,24 +1,20 @@
 import Component from './component.js';
 
 export default class PhoneViewer extends Component {
-  constructor({
-    element
-  }) {
-    super({
-      element
-    });
+  constructor({ element }) {
+    super({ element });
 
     this.on('click', '[data-element="back-button"]', () => {
       this.emit('back');
     });
+    this.on('click', '[data-element="add-to-cart"]', () => {
+      this.emit('add-phone', this._phoneDetails.id);
+    });
     this.on('click', '[data-element="small-preview"]', (event) => {
-      const bigPreview = this._element.querySelector('[data-element="big-preview"]');
+      const bigPreview = this._element
+        .querySelector('[data-element="big-preview"]');
       bigPreview.src = event.target.src;
-    })
-
-   this.on('click', '[data-element="add-to-cart"]', () => {
-        this.emit('add-phone', this._phoneDetails.id);
-    })
+    });
   }
 
   show(phoneDetails) {
@@ -51,6 +47,6 @@ export default class PhoneViewer extends Component {
           </li>
           `).join('')}
         </ul>
-        `
+        `;
   }
 }
