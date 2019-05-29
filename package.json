@@ -1,0 +1,39 @@
+{
+  "name": "phones-app",
+  "version": "1.0.0",
+  "description": "phohes shop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'js/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mate-academy/fe_on_jan19.git"
+  },
+  "author": "Mate academy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mate-academy/fe_on_jan19/issues"
+  },
+  "homepage": "https://github.com/mate-academy/fe_on_jan19#readme",
+  "devDependencies": {
+    "@mate-academy/eslint-config": "0.0.7",
+    "eslint": "^5.16.0",
+    "eslint-plugin-node": "^9.0.1",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6"
+  },
+  "dependencies": {},
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git update-index --again",
+      "pre-commit": "lint-staged"
+    }
+  }
+}
